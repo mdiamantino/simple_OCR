@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6397b7d-2e1e-4ebe-ba13-ae707464242d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/basicUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MPLClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/MPLClass.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="213" column="18" lean-forward="true" selection-start-line="213" selection-start-column="18" selection-end-line="213" selection-end-column="18" />
+            <state relative-caret-position="622">
+              <caret line="198" column="43" selection-start-line="198" selection-start-column="43" selection-end-line="198" selection-end-column="43" />
               <folding>
                 <element signature="e#114#138#0" expanded="true" />
               </folding>
@@ -28,15 +29,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/basicUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="972">
-              <caret line="256" column="55" lean-forward="true" selection-start-line="256" selection-start-column="55" selection-end-line="256" selection-end-column="55" />
+            <state relative-caret-position="795">
+              <caret line="256" column="55" selection-start-line="256" selection-start-column="55" selection-end-line="256" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MPLClass.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="169" column="22" selection-start-line="169" selection-start-column="8" selection-end-line="169" selection-end-column="22" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -54,8 +59,12 @@
       <find>ocrdigitspinbox</find>
       <find>digitsequence</find>
       <find>sequence</find>
-      <find>scantoarrays</find>
       <find>displayocr</find>
+      <find>scantoarrays</find>
+      <find>forwpass</find>
+      <find>predict</find>
+      <find>W1ocr, W2ocr</find>
+      <find>predic</find>
     </findStrings>
     <replaceStrings>
       <replace>12</replace>
@@ -68,13 +77,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/basicUI.py" />
+        <option value="$PROJECT_DIR$/MPLClass.py" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="741" />
-    <option name="y" value="96" />
+    <option name="x" value="993" />
+    <option name="y" value="50" />
     <option name="width" value="1734" />
     <option name="height" value="1407" />
   </component>
@@ -142,9 +152,6 @@
       <module name="machinelearningproj1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -179,16 +186,20 @@
       <workItem from="1548672301766" duration="657000" />
       <workItem from="1548755022642" duration="1381000" />
       <workItem from="1548756437437" duration="5744000" />
+      <workItem from="1548839018665" duration="298000" />
+      <workItem from="1548866464560" duration="254000" />
+      <workItem from="1548869141519" duration="3818000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7782000" />
+    <option name="totallyTimeSpent" value="12152000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="40" width="1734" height="1407" extended-state="1" />
+    <frame x="649" y="54" width="1734" height="1407" extended-state="1" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.099761054" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10274791" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -203,12 +214,12 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Python Console" order="12" visible="true" weight="0.3124019" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3124019" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" x="0" y="0" width="410" height="853" id="Documentation" order="4" side_tool="true" weight="0.121266425" />
+      <window_info anchor="right" x="0" y="0" width="410" height="853" id="Documentation" order="4" side_tool="true" visible="true" weight="0.121266425" />
       <window_info anchor="right" id="Database" order="5" />
     </layout>
   </component>
@@ -216,20 +227,24 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MPLClass.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/basicUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="256" column="55" lean-forward="true" selection-start-line="256" selection-start-column="55" selection-end-line="256" selection-end-column="55" />
+        <state relative-caret-position="795">
+          <caret line="256" column="55" selection-start-line="256" selection-start-column="55" selection-end-line="256" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MPLClass.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="169" column="22" selection-start-line="169" selection-start-column="8" selection-end-line="169" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="213" column="18" lean-forward="true" selection-start-line="213" selection-start-column="18" selection-end-line="213" selection-end-column="18" />
+        <state relative-caret-position="622">
+          <caret line="198" column="43" selection-start-line="198" selection-start-column="43" selection-end-line="198" selection-end-column="43" />
           <folding>
             <element signature="e#114#138#0" expanded="true" />
           </folding>

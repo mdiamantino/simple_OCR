@@ -173,24 +173,31 @@ class GuiConnect:
             print("Manual Mode")
         else:
             areas = [cv2.contourArea(k) for k in contours if cv2.contourArea(k) > 500]
+        tmp = []
         for (i, c) in enumerate(contours):
             #if cv2.contourArea(c) in areas[-n:]:  # Takes the n biggest areas (usually there are all the digits in).
             if cv2.contourArea(c) in (areas[-n:] if self.manualocrmode else areas):
                 [x, y, w, h] = cv2.boundingRect(c)
                 helpsort.append(x)
                 cv2.rectangle(imc, (x, y), (x + w, y + h), (0, 0, 255), 7)  # Draw a rectange on it.
-                add = int(max(h, w) * 1.3) - max(h, w)  # In order to make a perfect square around the digit
-                if h > w:  # In order to have 20:28 proportions (digit/area)
-                    squarew = (h - w) // 2 + add
-                    squereh = 0 + add
-                else:
-                    squarew = 0 + add
-                    squereh = (w - h) // 2 + add
-                roi = thresh[y - squereh:y + h + squereh, x - squarew:x + w + squarew]
-                #cv2.imshow('test', roi)
-                digit = cv2.resize(roi, (28, 28))  # Digits are resized to hte standard MNIST format.
-                digits.append(self.cv2array(digit))
-                #key = cv2.waitKey(0)
+                for c in (1.25, 1.3):
+                    add = int(max(h, w) * c) - max(h, w)  # In order to make a perfect square around the digit
+                    if h > w:  # In order to have 20:28 proportions (digit/area)
+                        squarew = (h - w) // 2 + add
+                        squereh = 0 + add
+                    else:
+                        squarew = 0 + add
+                        squereh = (w - h) // 2 + add
+                    roi = thresh[y - squereh:y + h + squereh, x - squarew:x + w + squarew]
+                    #cv2.imshow('test', roi)
+                    digit = cv2.resize(roi, (28, 28))  # Digits are resized to hte standard MNIST format.
+                    tmp.append(self.cv2array(digit))
+                    #key = cv2.waitKey(0)
+                    if c==1.3:
+                        digits.append(self.cv2array(digit))
+                recognizeddigit = self.mpl.specialpredict(tmp, self.loadedW1, self.loadedW2)
+                cv2.putText(imc, recognizeddigit, (x + w, y -100), cv2.FONT_HERSHEY_SIMPLEX, 10, (0, 255, 0), 20, 4)
+                tmp = []
         self.displayocr(imc)  # Found digits are displayed.
         return [x for _, x in sorted(zip(helpsort, digits))]  # They are sorted according to their initial position.
 

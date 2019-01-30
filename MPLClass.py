@@ -167,6 +167,19 @@ class MPL:
         """
         return np.argmax(self.forwpass(image, W1, W2)[4])
 
+    def specialpredict(self, imagelist, W1, W2):
+        """
+        :param image: Input image. (vector)
+        :param W1: Weight of the first layer. (matrix)
+        :param W2: Weight of the last layer. (matrix)
+        :return: The label of the predicted input image.
+        """
+        res_arr = np.array([self.forwpass(image, W1, W2)[4] for image in imagelist])
+        r_index = np.argmax(np.max(res_arr, axis=1))
+        print(r_index)
+        print(max(res_arr[r_index]))
+        return str(np.argmax(res_arr[r_index]))
+
     def crossValidation(self):
         """
         Cross-Validation
