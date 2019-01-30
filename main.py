@@ -14,6 +14,7 @@ import os
 class GuiConnect:
     def __init__(self, gui, application):
         self.progressbarstep = 0
+        self.savedocrspinbox = 1
         self.testsetlink, self.imgtoarratlink = '', ''
         self.image, self.picfromarr, self.loadedW1, self.loadedW2, = None, None, None, None
         self.pictoarray, self.imglabel, self.ocrpic, self.uploadedscanpath = None, None, None, None
@@ -160,16 +161,21 @@ class GuiConnect:
         :param n: (int) Number of digits in the selected image (helps improve the handwritten digits recognition)
         :return: (matrix n*784) Sorted matrix where each line is a digit (MNIST format) of the loaded image.
         """
-        digits, helpsort = [], []  # To help sort the recognised digits according to their position in the image.
+        digits, helpsort, areas = [], [], []  # To help sort the recognised digits according to their position in the image.
         imc = (cv2.imread(path)).copy()
         greyblur = cv2.blur(cv2.cvtColor(imc, cv2.COLOR_BGR2GRAY), (5, 5))  # Greyscale and blur filter
         (thresh, greyblur2) = cv2.threshold(greyblur, 200, 255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)  # Threshold filter
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (1, 5))  # Rounds shapes
         thresh = cv2.morphologyEx(greyblur2, cv2.MORPH_OPEN, kernel)  # Rounds shapes
         imc2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        areas = sorted([cv2.contourArea(k) for k in contours])  # Sorts areas of found contours.
+        if self.manualocrmode:
+            areas = sorted([cv2.contourArea(k) for k in contours])  # Sorts areas of found contours.
+            print("Manual Mode")
+        else:
+            areas = [cv2.contourArea(k) for k in contours if cv2.contourArea(k) > 500]
         for (i, c) in enumerate(contours):
-            if cv2.contourArea(c) in areas[-n:]:  # Takes the n biggest areas ( usually there are all the digits in).
+            #if cv2.contourArea(c) in areas[-n:]:  # Takes the n biggest areas (usually there are all the digits in).
+            if cv2.contourArea(c) in (areas[-n:] if self.manualocrmode else areas):
                 [x, y, w, h] = cv2.boundingRect(c)
                 helpsort.append(x)
                 cv2.rectangle(imc, (x, y), (x + w, y + h), (0, 0, 255), 7)  # Draw a rectange on it.
@@ -181,10 +187,10 @@ class GuiConnect:
                     squarew = 0 + add
                     squereh = (w - h) // 2 + add
                 roi = thresh[y - squereh:y + h + squereh, x - squarew:x + w + squarew]
-                # cv2.imshow('test', roi)
+                #cv2.imshow('test', roi)
                 digit = cv2.resize(roi, (28, 28))  # Digits are resized to hte standard MNIST format.
                 digits.append(self.cv2array(digit))
-                # key = cv2.waitKey(0)
+                #key = cv2.waitKey(0)
         self.displayocr(imc)  # Found digits are displayed.
         return [x for _, x in sorted(zip(helpsort, digits))]  # They are sorted according to their initial position.
 
@@ -213,7 +219,7 @@ class GuiConnect:
         :param ocrpic: Open-cv Image
         """
         self.ocrpic = QtWidgets.QLabel(self.ex)
-        self.ocrpic = self.convertopyqtimage(self.resize_opencv(ocrpic, 900), self.ocrpic)
+        self.ocrpic = self.convertopyqtimage(self.resize_opencv(ocrpic, 1100), self.ocrpic)
         self.ex.qrgridLayout.addWidget(self.ocrpic, 1, 0)
 
     def ocrmodemenu(self):
@@ -221,14 +227,14 @@ class GuiConnect:
         In case the user chooses the manual mode.
         """
         if self.ex.ocrmodecombo.currentIndex() == 1:
+            self.ex.ocrdigitspinbox.setValue(self.savedocrspinbox)  # Restores the saved value of the digits spinbox.
+            self.ex.ocrdigitspinbox.setEnabled(True)
+            self.manualocrmode = True
+        else:   # Auto Mode enabled
             self.savedocrspinbox = self.ex.ocrdigitspinbox.value()  # Saves the current value of the digits spinbox.
             self.ex.ocrdigitspinbox.setValue(1)  # Sets the digits spinbox to 1 and does not let the user change it.
-            self.ex.ocrdigitspinbox.setEnabled(False)
-            self.manualocrmode = True
-        else:
-            self.ex.ocrdigitspinbox.setEnabled(True)  # Allows the user to change the value of the digits spinbox.
+            self.ex.ocrdigitspinbox.setEnabled(False)  # Allows the user to change the value of the digits spinbox.
             self.manualocrmode = False
-            self.ex.ocrdigitspinbox.setValue(self.savedocrspinbox)  # Restores the saved value of the digits spinbox.
 
     def scanupload(self):
         """
@@ -278,12 +284,11 @@ class GuiConnect:
             self.updatemplvalues(True)
             W1ocr, W2ocr = self.mpl.trainperceptron()
         ocresult = ''
-        if self.manualocrmode:
-            ocresult += str(self.mpl.predict(self.image_to_mnist(self.uploadedscanpath), W1ocr, W2ocr))
-            self.displayocr(cv2.imread(self.uploadedscanpath))
-        else:
-            for picture in self.scantoarrays(self.uploadedscanpath, self.ex.ocrdigitspinbox.value()):
-                ocresult += str(self.mpl.predict(picture, W1ocr, W2ocr)) + ' '
+        #if self.manualocrmode:
+        #    ocresult += str(self.mpl.predict(self.image_to_mnist(self.uploadedscanpath), W1ocr, W2ocr))
+        #    self.displayocr(cv2.imread(self.uploadedscanpath))
+        for picture in self.scantoarrays(self.uploadedscanpath, self.ex.ocrdigitspinbox.value()):
+            ocresult += str(self.mpl.predict(picture, W1ocr, W2ocr)) + ' '
         self.ex.digitsequence.setText(ocresult)
         self.ex.ocruploadpushbutton.setText("Load Image")
         self.ex.ocruploadpushbutton.setEnabled(True)
