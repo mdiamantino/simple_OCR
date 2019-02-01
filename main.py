@@ -196,7 +196,7 @@ class GuiConnect:
                     if c==1.3:
                         digits.append(self.cv2array(digit))
                 recognizeddigit = self.mpl.specialpredict(tmp, self.loadedW1, self.loadedW2)
-                cv2.putText(imc, recognizeddigit, (x + w, y -100), cv2.FONT_HERSHEY_SIMPLEX, 10, (0, 255, 0), 20, 4)
+                cv2.putText(imc, recognizeddigit, (x + w, y-25), cv2.FONT_HERSHEY_SIMPLEX, 4, (0, 255, 0), 20, 4)
                 tmp = []
         self.displayocr(imc)  # Found digits are displayed.
         return [x for _, x in sorted(zip(helpsort, digits))]  # They are sorted according to their initial position.
@@ -225,6 +225,10 @@ class GuiConnect:
         Displays the loaded picture in the OCR tab.
         :param ocrpic: Open-cv Image
         """
+        if self.ocrpic:
+            self.ex.qrgridLayout.removeWidget(self.ocrpic)
+            self.ocrpic.deleteLater()
+            self.widget_name=None
         self.ocrpic = QtWidgets.QLabel(self.ex)
         self.ocrpic = self.convertopyqtimage(self.resize_opencv(ocrpic, 1100), self.ocrpic)
         self.ex.qrgridLayout.addWidget(self.ocrpic, 1, 0)
